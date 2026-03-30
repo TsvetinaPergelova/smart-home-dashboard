@@ -8,13 +8,43 @@ const DEVICES_STORAGE_KEY = "smart-home:devices";
 const LOGS_STORAGE_KEY = "smart-home:logs";
 const SCENE_STORAGE_KEY = "smart-home:scene";
 
+function detectRoomFromName(name: string): string {
+  const parts = name.split(" - ");
+  if (parts.length > 1 && parts[0].trim()) {
+    return parts[0].trim();
+  }
+
+  if (name.includes("врата")) return "Антре";
+  return "Обща зона";
+}
+
 function loadDevices(): Device[] {
   try {
     const raw = localStorage.getItem(DEVICES_STORAGE_KEY);
     if (!raw) return initialDevices;
     const parsed = JSON.parse(raw) as Device[];
     if (!Array.isArray(parsed)) return initialDevices;
-    return parsed;
+
+    const initialById = new Map(
+      initialDevices.map((device) => [device.id, device]),
+    );
+
+    const normalized = parsed.map((device) => ({
+      ...(initialById.get(device.id) ?? device),
+      // Keep persisted power state while syncing metadata from initialDevices.
+      isOn: Boolean(device.isOn),
+      room:
+        initialById.get(device.id)?.room ||
+        device.room ||
+        detectRoomFromName(device.name),
+    }));
+
+    const existingIds = new Set(normalized.map((device) => device.id));
+    const missingInitialDevices = initialDevices.filter(
+      (device) => !existingIds.has(device.id),
+    );
+
+    return [...normalized, ...missingInitialDevices];
   } catch {
     return initialDevices;
   }

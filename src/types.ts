@@ -4,6 +4,7 @@ export type Scene = "Home" | "Night" | "Away";
 export interface Device {
   id: string;
   name: string;
+  room: string;
   type: DeviceType;
   isOn: boolean;
 }

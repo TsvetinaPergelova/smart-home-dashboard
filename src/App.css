@@ -19,6 +19,13 @@
   font-size: 2rem;
 }
 
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 .hero p {
   margin: 0;
   color: var(--muted);
@@ -118,6 +125,25 @@
   color: #1e293b;
 }
 
+.top-nav {
+  margin-bottom: 12px;
+}
+
+.nav-link {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #e2e8f0;
+  color: #1e293b;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.nav-link:hover {
+  filter: brightness(1.04);
+}
+
 .ghost:disabled {
   opacity: 0.55;
   cursor: not-allowed;
@@ -147,6 +173,81 @@
   margin-right: 6px;
 }
 
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.room-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.room-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.room-head h2 {
+  margin: 0;
+}
+
+.room-head strong {
+  color: var(--muted);
+}
+
+.room-card ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.room-card li {
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: #fcfffe;
+}
+
+.room-card p {
+  margin: 0 0 2px;
+}
+
+.room-card small {
+  color: var(--muted);
+}
+
+.room-card button {
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+}
+
+.room-card button:hover {
+  filter: brightness(1.08);
+}
+
+.room-card .ghost {
+  color: #1e293b;
+  background: #e2e8f0;
+}
+
 @media (max-width: 900px) {
   .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -154,5 +255,14 @@
 
   .devices {
     grid-template-columns: 1fr;
+  }
+
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-top {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
